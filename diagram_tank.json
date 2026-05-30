@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "author": "Weenuka",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp_tank",
+      "top": 67.2,
+      "left": 120,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-lcd1602",
+      "id": "lcd_tank",
+      "top": -118.4,
+      "left": 395,
+      "attrs": { "pins": "i2c" }
+    },
+    {
+      "type": "wokwi-hc-sr04",
+      "id": "ultrasonic_tank",
+      "top": -118.5,
+      "left": 205,
+      "attrs": { "distance": "80" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_tank_ok",
+      "top": 350.4,
+      "left": 150,
+      "attrs": { "color": "green", "label": "Tank OK" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_tank_ok",
+      "top": 426.35,
+      "left": 215,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_tank_low",
+      "top": 350.4,
+      "left": 285,
+      "attrs": { "color": "red", "label": "Tank Low" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_tank_low",
+      "top": 426.35,
+      "left": 350,
+      "attrs": { "value": "220" }
+    }
+  ],
+  "connections": [
+    [ "esp_tank:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp_tank:RX", "$serialMonitor:TX", "", [] ],
+    [ "ultrasonic_tank:VCC", "esp_tank:5V", "red", [ "h0" ] ],
+    [ "ultrasonic_tank:GND", "esp_tank:GND.1", "black", [ "h0" ] ],
+    [ "ultrasonic_tank:TRIG", "esp_tank:5", "green", [ "h0" ] ],
+    [ "ultrasonic_tank:ECHO", "esp_tank:18", "green", [ "h0" ] ],
+    [ "lcd_tank:VCC", "esp_tank:5V", "red", [ "h0" ] ],
+    [ "lcd_tank:GND", "esp_tank:GND.1", "black", [ "h0" ] ],
+    [ "lcd_tank:SDA", "esp_tank:21", "green", [ "h0" ] ],
+    [ "lcd_tank:SCL", "esp_tank:22", "green", [ "h0" ] ],
+    [ "led_tank_ok:A", "esp_tank:19", "green", [ "h0" ] ],
+    [ "led_tank_ok:C", "r_tank_ok:1", "green", [ "h0" ] ],
+    [ "r_tank_ok:2", "esp_tank:GND.1", "black", [ "h0" ] ],
+    [ "led_tank_low:A", "esp_tank:23", "green", [ "h0" ] ],
+    [ "led_tank_low:C", "r_tank_low:1", "green", [ "h0" ] ],
+    [ "r_tank_low:2", "esp_tank:GND.1", "black", [ "h0" ] ]
+  ],
+  "dependencies": {}
+}
